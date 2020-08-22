@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!Doctype html>
+<html lang="ko">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
-        <link rel="stylesheet" href="index.html">
+        <link type="text/css" rel="stylesheet" href="index.html">
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -17,95 +17,80 @@
                 crossorigin="anonymous"></script>
 
         <!-- 구글폰트 -->
+    </head>
 
 
-        <link href="style.css" rel="stylesheet">
+    <!-- style -->
+    <style type="text/css">
+        .bg-cover {
+            background-image: url('https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/alfheim-196-image-summer-anrufdk-resized-889x618.jpg');
+        }
 
+        .jumbotron {
+            text-align: center;
+            padding-top: 10rem;
+            padding-bottom: 10rem;
+            text-shadow: 2px 2px #000;
+        }
 
-        <!-- style -->
-        <style type="text/css">
-            .bg-cover {
-                background-image: url('https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/alfheim-196-image-summer-anrufdk-resized-889x618.jpg');
-            }
+        .lead span {
+            color: orange;
+            font-weight: bold;
+        }
 
-            .jumbotron {
-                text-align: center;
-                padding-top: 10rem;
-                padding-bottom: 10rem;
-                text-shadow: 2px 2px #000;
-            }
+        .bg-cover {
+            background-size: cover;
+            color: white;
+            background-position: center center;
+            position: relative;
+            z-index: -2;
+        }
 
-            .lead span {
-                color: orange;
-                font-weight: bold;
-            }
+        .overlay {
+            background-color: #000;
+            opacity: 0.5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
 
-            .bg-cover {
-                background-size: cover;
-                color: white;
-                background-position: center center;
-                position: relative;
-                z-index: -2;
-            }
+        }
 
-            .overlay {
-                background-color: #000;
-                opacity: 0.5;
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                z-index: -1;
+        .input-group {
+            top: 120px
 
-            }
+        }
 
-            .input-group {
-                top: 120px
+        .col-md-8 {
+            text-align: center;
+            font-size: medium;
+        }
 
-            }
+    </style>
 
-            .col-md-8 {
-                text-align: center;
-            }
+    <script type="text/javascript">
+        // <!----이 부분이 쿠키 구글링하다가 찾은 코드인데...----->
+        document.cookie = "CrossCookie = bar; SameSite = None; Secure";
 
+        $.ajax({
+            method: "GET",
+            url: "https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=AD5",
+            data: {q: "캠핑장"},
+            headers: {"Authorization": 'KakaoAK ' + API_KEY}
 
-        </style>
+        })
+            .done(function (msg) {
+                console.log(msg);
 
-        <script>
-            function showArticles() {
-                $.ajax({
-                    type: "GET",
-                    url: "/memo",
-                    data: {},
-                    success: function (response) {
-                        let articles = response["articles"];
-                        for (let i = 0; i < articles.length; i++) {
-                            makeCard(articles[i]["image"], articles[i]["url"], articles[i]["title"], articles[i]["desc"], articles[i]["comment"])
-                        }
-                    }
-                })
-            }
+            });
 
-
-            function makeCard(image, url, title, desc, comment) {
-                let temp_html = `<div class="card">
-                        <img class="card-img-top" src="${image}" alt="Card image cap">
-                        <div class="card-body">
-                        <a href="${url}" target="_blank" class="card-title">${title}</a>
-                        <p class="card-text">${desc}</p>
-                        <p class="card-text comment">${comment}</p>
-                        </div>
-                    </div>`;
-                $("#cards-box").append(temp_html);
-            }
-
-
-
-        </script>
+    </script>
 
 
     <body>
+
 
         <div class="jumbotron jumbotron bg-cover">
             <div class="overlay"></div>
