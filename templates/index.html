@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
               integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
               crossorigin="anonymous">
-        <link type="text/css" rel="stylesheet" href="index.html">
+
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -70,21 +70,51 @@
 
     </style>
 
-    <script type="text/javascript">
-        // <!----이 부분이 쿠키 구글링하다가 찾은 코드인데...----->
-        document.cookie = "CrossCookie = bar; SameSite = None; Secure";
+    <script>
 
-        $.ajax({
-            method: "GET",
-            url: "https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=AD5",
-            data: {q: "캠핑장"},
-            headers: {"Authorization": 'KakaoAK ' + API_KEY}
+        $(document).ready(function () {
+            showCamping();
+        });
 
-        })
-            .done(function (msg) {
-                console.log(msg);
+        // 캠핑장 목록을 서버에 요청하기
+        function showCamping() {
+            $.ajax({
+                type: "GET",
+                url: "/camping",
+                data: {name_give: name, img_url_give: img, text_give: text, address_give: address, call_give: call},
+                success: function (response) {
+                    // 2. 요청 성공 여부 확인하기
+                    if (response["result"] == "success") {
+                        let campings = response["camping"];
+                        // 3. 요청 성공했을 때 캠핑장을 올바르게 화면에 나타내기
+                        for (let i = 0; i < campings.length; i++) {
+                            makeCard(campings[i]["name"], campings[i]["img_url"], campings[i]["text"], campings[i]["address"], campings[i]["call"]);
+                        }
+                    } else {
+                        alert("리뷰를 받아오지 못했습니다");
+                    }
+                }
+            })
+        }
 
-            });
+        function makeCard(name, img_url, text, address, call) {
+
+        }
+
+        function makeCard(name, img_url, text, address, call) {
+            let tempHtml = ` <div class="card">
+                    <img class="card-img-top" src="${img_url}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-name">${name}</h5>
+                        <p class="card-text">${text}</p>
+                        <p class="card-address">${address}</p>
+                        <p class="card-call">${call}</p>
+                    </div>
+                </div>
+             $("#col mb-4").append(temp_html);
+             }
+
+
 
     </script>
 
@@ -120,67 +150,74 @@
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
             <div class="col mb-4">
                 <div class="card">
                     <img src="https://inhabitat.com/wp-content/blogs.dir/1/files/2018/06/2-resized-889x592.jpg"
-                         class="card-img-top" alt="캠핑장이름">
+                         class="card-img-top" alt="캠핑장사진">
                     <div class="card-body">
-                        <h5 class="card-title">캠핑장이름</h5>
+                        <h5 class="card-name">캠핑장이름</h5>
                         <p class="card-text">캠핑장소개글</p>
-                        <p class="card-text"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-address"><small class="text-muted">연결 사이트</small></p>
+                        <p class="card-call"><small class="text-muted">전화번호</small></p>
                     </div>
                 </div>
             </div>
         </div>
+

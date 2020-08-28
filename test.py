@@ -1,45 +1,45 @@
-import requests
-from bs4 import BeautifulSoup
-
-from pymongo import MongoClient
-
-client = MongoClient('localhost', 27017)
-db = client.dbsparta
-
-
-# DB에 저장할 영화인들의 출처 url을 가져옵니다.
-def get_urls():
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get(
-        'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5',
-        headers=headers)
-
-    soup = BeautifulSoup(data.text, 'html.parser')
-
-    trs = soup.select('#container > div > div > div > div > ul > li')
-
-    urls = []
-    for tr in trs:
-        a = tr.select_one('div > div > div > span > a ')
-        if a is not None:
-            base_url = 'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5'
-            url = base_url + a['href']
-            urls.append(url)
-
-    return urls
-
-
-def insert_camping(url):
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get(
-        'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5',
-        headers=headers)
-
-    soup = BeautifulSoup(data.text, 'html.parser')
-
-   name = soup.select_one("#_business_19963724 > div > div > div.tit > span > a > span").text
+# import requests
+# from bs4 import BeautifulSoup
+#
+# from pymongo import MongoClient
+#
+# client = MongoClient('localhost', 27017)
+# db = client.dbsparta
+#
+#
+# # DB에 저장할 영화인들의 출처 url을 가져옵니다.
+# def get_urls():
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+#     data = requests.get(
+#         'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5',
+#         headers=headers)
+#
+#     soup = BeautifulSoup(data.text, 'html.parser')
+#
+#     trs = soup.select('#container > div > div > div > div > ul > li')
+#
+#     urls = []
+#     for tr in trs:
+#         a = tr.select_one('div > div > div > span > a ')
+#         if a is not None:
+#             base_url = 'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5'
+#             url = base_url + a['href']
+#             urls.append(url)
+#
+#     return urls
+#
+#
+# def insert_camping(url):
+#     headers = {
+#         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+#     data = requests.get(
+#         'https://store.naver.com/accommodations/list?deviceType=pc&display=30&ip=116.37.34.148&query=%EC%BA%A0%ED%95%91%EC%9E%A5',
+#         headers=headers)
+#
+#     soup = BeautifulSoup(data.text, 'html.parser')
+#
+#    name = soup.select_one("#_business_19963724 > div > div > div.tit > span > a > span").text
 
 # --------------------------------------------------------------
 # from bs4 import BeautifulSoup

@@ -1,49 +1,62 @@
-from flask import Flask, render_template, jsonify, request
-import requests
-from bs4 import BeautifulSoup
-from pymongo import MongoClient
-import json
+# from flask import Flask, render_template, request, jsonify
+# from bs4 import BeautifulSoup
+# import requests
+# import json
+# import pandas as pd
+# import urllib
+#
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+# with open('config.json', 'r') as f:
+#     config = json.load(f)
+#
+# # client_id = config['CLIENT_ID']  # 'secret-key-of-myapp'
+# # client_secret = config['CLIENT_SECRET'] # 개발자센터에서 발급받은 Client Secret 값
+# API_KEY = config['KAKAO_REST_API_KEY']
+#
+#
+# app = Flask(__name__)
+#
+#
+# ## HTML을 주는 부분
+# @app.route('/')
+# def camping():
+#     return render_template('index.html')
+#
+# @app.route('/kakaoapi', methods=['GET'])
+# def send_kakaoapi():
+#     # 설정 불러오기
+#     with open('config.json', 'r') as f:
+#         config = json.load(f)
+#     REST_API_KEY = config['KAKAO_REST_API_KEY']
+#
+# # kakao api 요청하기
+#     url = "https://dapi.kakao.com/v2/local/search/keyword.json?size=15&sort=accuracy&query=%EC%BA%A0%ED%95%91%EC%9E%A5&page=10"
+#     headers = "Authorization: KakaoAK  {REST_API_KEY}"
+#     q = "캠핑장"
+#     params = {'query': q}
+#     place = requests.get(url, params=params, headers=headers)
+# # json 형태로 넘기
+#     result = {"kakao_result": place.json()}
+#     return jsonify(result)
+#
+# ## API 역할을 하는 부분
+# @app.route('/camping', methods=['GET'])
+# def read_campings():
+#     title_receive = request.args.get('title_give')
+#     print(title_receive)
+#     return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
+#
+#
+# ## API 역할을 하는 부분
+# @app.route('/test', methods=['GET'])
+# def test_get():
+#     title_receive = request.args.get('title_give')
+#     print(title_receive)
+#     return jsonify({'result': 'success', 'msg': '이 요청은 GET!'})
+#
+# if __name__ == '__main__':
+#     app.run('127.0.0.1', port=5000, debug=True)
 
-url = 'https://platum.kr/archives/120958'
-
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-data = requests.get(url, headers=headers)
-
-soup = BeautifulSoup(data.text, 'html.parser')
-
-app = Flask(__name__)
-
-client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
-db = client.dbsparta
-
-
-
-import os
-import sys
-import urllib.request
-
-with open('config.json', 'r') as f:
-    config = json.load(f)
-
-client_id = config['CLIENT_ID']  # 'secret-key-of-myapp'
-
-client_secret = config['CLIENT_SECRET'] # 개발자센터에서 발급받은 Client Secret 값
-
-
-encText = urllib.parse.quote("https://developers.naver.com/docs/utils/shortenurl")
-data = "url=" + encText
-url = "https://openapi.naver.com/v1/util/shorturl"
-request = urllib.request.Request(url)
-request.add_header("X-Naver-Client-Id",client_id)
-request.add_header("X-Naver-Client-Secret",client_secret)
-response = urllib.request.urlopen(request, data=data.encode("utf-8"))
-rescode = response.getcode()
-if(rescode==200):
-    response_body = response.read()
-    print(response_body.decode('utf-8'))
-else:
-    print("Error Code:" + rescode)
 
 
 

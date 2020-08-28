@@ -1,24 +1,24 @@
-from flask import Flask, render_template, jsonify, request
-from bs4 import BeautifulSoup
-import requests
-import json
-import pandas as pd
-import urllib
-
-user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
-with open('config.json', 'r') as f:
-    config = json.load(f)
-
-client_id = config['CLIENT_ID']  # 'secret-key-of-myapp'
-client_secret = config['CLIENT_SECRET'] # 개발자센터에서 발급받은 Client Secret 값
-API_KEY = config['KAKAO_REST_API_KEY']
-
-url = "https://dapi.kakao.com/v2/local/search/category.json?category_group_code=AD5"
-headers= {"Authorization" : 'KakaoAK ' + API_KEY}
-q = "캠핑장"
-params = {'query' : q }
-
-place = requests.get(url, params=params, headers=headers)
+# from flask import Flask, render_template, jsonify, request
+# from bs4 import BeautifulSoup
+# import requests
+# import json
+# import pandas as pd
+# import urllib
+#
+# user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+# with open('config.json', 'r') as f:
+#     config = json.load(f)
+#
+# client_id = config['CLIENT_ID']  # 'secret-key-of-myapp'
+# client_secret = config['CLIENT_SECRET'] # 개발자센터에서 발급받은 Client Secret 값
+# API_KEY = config['KAKAO_REST_API_KEY']
+#
+# url = "https://dapi.kakao.com/v2/local/search/keyword.json "
+# headers= {"Authorization" : 'KakaoAK ' + API_KEY}
+# q = "캠핑장"
+# params = {'query' : q }
+#
+# place = requests.get(url, params=params, headers=headers)
 
 # API_KEY = config['KAKAO_REST_API_KEY']
 # user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
